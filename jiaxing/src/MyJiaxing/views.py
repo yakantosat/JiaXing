@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, Http404
-
+from django.template.loader import get_template
+from django.template import Context
 import datetime
 
 # Create your views here.
@@ -8,9 +9,8 @@ def hello(request):
     return HttpResponse("Hello, world")
 
 def current_datetime(request):
-    now = datetime.datetime.now()
-    html = "<html><body>It is now %s.</body></html>" % now
-    return HttpResponse(html)
+    current_date = datetime.datetime.now()
+    return render_to_response('current_datetime.html', locals())
 
 def hours_ahead(request, offset):
     try:
